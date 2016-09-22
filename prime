@@ -1,0 +1,64 @@
+import java.*;
+import java.lang.reflect.Array;
+import java.util.Scanner;
+import java.util.Arrays;
+
+public class PrimeRange {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		int l,r;
+		l=sc.nextInt();
+		r = sc.nextInt();
+		
+		int[] count = new int[10];
+		int max=0,max_digit=0;
+		
+		boolean[] prime = new boolean[r+1];
+		
+		Arrays.fill(prime, true);
+		prime[0]=false;prime[1]=false;
+		for(int i=2;i*i<=r;i++){
+			if(prime[i]){
+				for(int p=2*i;p<=r;p+=i){
+					prime[p] = false;
+				}
+			}
+		}
+		for(int i=l;i<=r;i++){
+			
+			if(prime[i]){
+				System.out.println(i);
+				int temp = i;
+				while(temp !=0){
+					int digit = temp%10;
+					
+					count[digit]++;
+					int val = count[digit];
+					//System.out.println("val = "+val);
+					if(val>max){
+						
+						max = val;
+						max_digit = digit;
+						
+					}
+					else if(val==max){
+						
+						if(digit>max_digit){
+							max_digit = digit;
+						}
+					}
+					
+					temp = temp/10;
+					//System.out.println("max = "+max);
+				}
+			}
+		}
+		System.out.println(max_digit+" : "+max);
+	}
+
+}
